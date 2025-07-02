@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetheria - Server Minecraft Anda</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Warna latar belakang gelap */
+            color: #e2e8f0; /* Warna teks terang */
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .card {
+            background-color: #2d3748; /* Warna kartu yang sedikit lebih terang */
+            border-radius: 1rem; /* Sudut membulat */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Bayangan yang lebih dalam */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px) scale(1.01); /* Efek melayang dan sedikit membesar saat hover */
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary {
+            background-color: #4299e1; /* Biru cerah */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background-color: #3182ce; /* Biru yang sedikit lebih gelap */
+            transform: translateY(-2px);
+        }
+        .feature-item {
+            background-color: #4a5568; /* Warna latar belakang fitur */
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .feature-item svg {
+            margin-right: 0.5rem;
+            color: #63b3ed; /* Warna ikon */
+        }
+        /* Animasi fade-in */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Animasi untuk elemen spesifik */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1.0s; }
+        .delay-6 { animation-delay: 1.2s; }
+        .delay-7 { animation-delay: 1.4s; }
+        .delay-8 { animation-delay: 1.6s; }
+        .delay-9 { animation-delay: 1.8s; }
+        .delay-10 { animation-delay: 2.0s; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-blue-700 to-purple-700 py-8 shadow-lg text-center rounded-b-3xl">
+        <div class="container fade-in">
+            <h1 class="text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Aetheria</h1>
+            <p class="text-xl text-blue-100 mb-6">Jelajahi Dunia Tanpa Batas di Server Minecraft Kami!</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button id="copyJavaIpBtn" class="btn-primary flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Salin IP Java
+                </button>
+                <button id="copyBedrockIpBtn" class="btn-primary flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Salin IP Bedrock
+                </button>
+            </div>
+            <div id="copyMessage" class="mt-4 text-green-300 text-lg font-semibold hidden">IP disalin!</div>
+        </div>
+    </header>
+
+    <!-- Server Info Section -->
+    <section class="py-16">
+        <div class="container grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card p-8 text-center fade-in delay-1">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">Informasi Server</h2>
+                <p class="text-lg mb-2">IP: <span class="font-semibold text-blue-300">play.aetheria.biz.id</span></p>
+                <p class="text-lg mb-2">Port Java: <span class="font-semibold text-blue-300">25565</span></p>
+                <p class="text-lg">Port Bedrock: <span class="font-semibold text-blue-300">19132</span></p>
+            </div>
+            <div class="card p-8 text-center fade-in delay-2">
+                <h2 class="text-3xl font-bold mb-4 text-purple-400">Bergabunglah Sekarang!</h2>
+                <p class="text-lg mb-4">Siap untuk petualangan seru? Hubungkan ke Aetheria dan mulailah perjalanan Anda!</p>
+                <a href="#" class="btn-primary inline-block">
+                    Mulai Bermain
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Minigames Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white fade-in delay-3">Minigames Kami</h2>
+
+            <!-- Survival Section -->
+            <div class="card p-8 mb-12 fade-in delay-4">
+                <h3 class="text-3xl font-bold mb-6 text-green-400 text-center">Survival</h3>
+                <p class="text-lg mb-6 text-center">Bangun, jelajahi, dan bertahan hidup di dunia yang luas dengan fitur unik:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Senjata Legend
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.208-8.455-3.245a1 1 0 011.119-1.664 8.957 8.957 0 007.378 0 1 1 0 011.119 1.664zM12 21c4.97 0 9-3.582 9-8s-4.03-8-9-8-9 3.582-9 8 4.03 8 9 8z"></path></svg>
+                        Jobs (Pekerjaan)
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"></path></svg>
+                        Dungeon
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Mining
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.928 12c0 3.072 1.187 5.927 3.24 8.062A11.99 11.99 0 0012 21.054c3.072 0 5.927-1.187 8.062-3.24A11.99 11.99 0 0021.054 12c0-3.072-1.187-5.927-3.24-8.062z"></path></svg>
+                        Skill
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.592 1L21 12l-1.475 1.475M12 8V3m0 18v-5M2.928 12c.141.66.29 1.313.447 1.967M21.072 12c-.141.66-.29 1.313-.447 1.967M12 8h.01M12 16h.01"></path></svg>
+                        Coins
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L3 12l5.714-2.143L11 3z"></path></svg>
+                        Dan Lain-lain!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skyblock Section -->
+            <div class="card p-8 fade-in delay-5">
+                <h3 class="text-3xl font-bold mb-6 text-yellow-400 text-center">Skyblock</h3>
+                <p class="text-lg mb-6 text-center">Uji keterampilan bertahan hidup Anda di pulau terapung dengan fitur-fitur seru:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Pulau Kustom
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        Tantangan Harian & Mingguan
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Minion Otomatis
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        Toko Pemain
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.324 1.118l1.519 4.674c.3.921-.755 1.688-1.539 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.539-1.118l1.519-4.674a1 1 0 00-.324-1.118L2.283 9.092c-.783-.57-.381-1.81.588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z"></path></svg>
+                        Enchant Kustom
+                    </div>
+                    <div class="feature-item">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        Crates & Hadiah
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 py-8 text-center rounded-t-3xl">
+        <div class="container fade-in delay-6">
+            <p class="text-gray-400">&copy; 2025 Aetheria. Semua Hak Dilindungi.</p>
+            <p class="text-gray-500 text-sm mt-2">Dibuat dengan ❤️ untuk komunitas Minecraft.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyJavaIpBtn = document.getElementById('copyJavaIpBtn');
+            const copyBedrockIpBtn = document.getElementById('copyBedrockIpBtn');
+            const copyMessage = document.getElementById('copyMessage');
+
+            // Function to copy text to clipboard
+            function copyToClipboard(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    copyMessage.textContent = 'IP disalin!';
+                    copyMessage.classList.remove('hidden');
+                    setTimeout(() => {
+                        copyMessage.classList.add('hidden');
+                    }, 2000); // Sembunyikan pesan setelah 2 detik
+                } catch (err) {
+                    console.error('Gagal menyalin:', err);
+                    copyMessage.textContent = 'Gagal menyalin IP.';
+                    copyMessage.classList.remove('hidden');
+                    copyMessage.classList.remove('text-green-300');
+                    copyMessage.classList.add('text-red-300');
+                    setTimeout(() => {
+                        copyMessage.classList.add('hidden');
+                        copyMessage.classList.remove('text-red-300');
+                        copyMessage.classList.add('text-green-300');
+                    }, 2000);
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+
+            // Event listener for Java IP copy button
+            if (copyJavaIpBtn) {
+                copyJavaIpBtn.addEventListener('click', () => {
+                    copyToClipboard('play.aetheria.biz.id:25565');
+                });
+            }
+
+            // Event listener for Bedrock IP copy button
+            if (copyBedrockIpBtn) {
+                copyBedrockIpBtn.addEventListener('click', () => {
+                    copyToClipboard('play.aetheria.biz.id:19132');
+                });
+            }
+
+            // Add fade-in animation to elements
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                el.style.opacity = 0; // Ensure elements are hidden initially
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
